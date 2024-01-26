@@ -10,6 +10,8 @@ const client = new Client({
 
 await client.login(process.env.TOKEN)
 
+console.log(`logged in as ${client.user}`)
+
 client.on('guildMemberUpdate', async (prev, next) => {
   const changes = next.roles.cache.difference(prev.roles.cache)
 
@@ -36,6 +38,7 @@ client.on('guildMemberUpdate', async (prev, next) => {
   DEBOUNCE_TIMER.set(
     next.id,
     setTimeout(() => {
+      console.log(`adding role to ${next}`)
       next.roles.add(process.env.FUNCLUB_ROLE_ID)
     }, 5000)
   )
