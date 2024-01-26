@@ -1,0 +1,4 @@
+{
+  "name": "funclub-role-antiremove",
+  "script": "./app.js"
+}
