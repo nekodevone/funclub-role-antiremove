@@ -10,13 +10,14 @@ const client = new Client({
 
 await client.login(process.env.TOKEN)
 
-console.log(`logged in as ${client.user}`)
+console.log(`logged in as ${client.user?.displayName} (${client.user?.id})`)
 
 client.on('guildMemberUpdate', async (prev, next) => {
   const changes = next.roles.cache.difference(prev.roles.cache)
 
   // Если роль фанклаба не изменена
   if (!changes.has(process.env.FUNCLUB_ROLE_ID)) {
+    console.log(`no changes for ${next.user.username} (${next.id})`)
     return
   }
 
@@ -25,6 +26,7 @@ client.on('guildMemberUpdate', async (prev, next) => {
     next.roles.cache.has(process.env.FUNCLUB_ROLE_ID) ||
     next.roles.cache.has(process.env.TOXIC_ROLE_ID)
   ) {
+    console.log(`has role ${next.user.username} (${next.id})`)
     return
   }
 
@@ -35,10 +37,11 @@ client.on('guildMemberUpdate', async (prev, next) => {
     DEBOUNCE_TIMER.delete(next.id)
   }
 
+  console.log(`enqueuing ${next.user.username} (${next.id})`)
   DEBOUNCE_TIMER.set(
     next.id,
     setTimeout(() => {
-      console.log(`adding role to ${next}`)
+      console.log(`adding role to ${next.user.username} (${next.id})`)
       next.roles.add(process.env.FUNCLUB_ROLE_ID)
     }, 5000)
   )
