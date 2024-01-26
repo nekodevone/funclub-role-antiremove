@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "strict": true,
+    "module": "node16",
+    "target": "es2022"
+  },
+  "include": ["types", "app.js"]
+}
