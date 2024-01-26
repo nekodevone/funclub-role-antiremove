@@ -5,7 +5,11 @@ import 'dotenv/config'
 const DEBOUNCE_TIMER = new Map()
 
 const client = new Client({
-  intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildPresences]
+  intents: [
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMembers,
+    IntentsBitField.Flags.GuildPresences
+  ]
 })
 
 await client.login(process.env.TOKEN)
